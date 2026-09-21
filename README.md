@@ -16,5 +16,10 @@
 ```
 docker-compose up -d
 ```
-6. Ejecutar
+6. Ejecutar SEED de productos
+```
+http://localhost:3000/api/v1/seed
+```
+
+7. Ejecutar
 ```npm run start:dev```
