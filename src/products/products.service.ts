@@ -143,4 +143,18 @@ export class ProductsService {
     this.logger.error(error)
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
+
+  //Función para limpiar la tabla de productos
+  async deleteAllProducts()
+  {
+    const query = this.productImageRepository.createQueryBuilder('product');
+    try
+    {
+      return await query.delete().from(Product).execute();
+    }
+    catch(error)
+    {
+      this.handleDBExceptions(error);
+    }    
+  }
 }
