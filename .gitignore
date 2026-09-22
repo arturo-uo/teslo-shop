@@ -5,6 +5,7 @@
 
 postgres/
 .env
+public/products/*
 
 # Logs
 logs

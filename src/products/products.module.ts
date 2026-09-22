@@ -1,4 +1,4 @@
-import { TypeOrmModule } from 'node_modules/@nestjs/typeorm/dist/typeorm.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
 import { ProductsService } from './products.service'
 import { ProductsController } from './products.controller'
