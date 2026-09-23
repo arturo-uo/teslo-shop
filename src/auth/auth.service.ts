@@ -32,7 +32,7 @@ export class AuthService {
 
       return {
         ...user,
-        token: this.getJwtToken({ email: user.email })
+        token: this.getJwtToken({ id: user.id })
       }
     }
     catch (error: Error | any) {
@@ -44,7 +44,7 @@ export class AuthService {
     const { password, email } = loginUserDto
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true }
+      select: { id: true, email: true, password: true }
     })
     if (!user)
       throw new UnauthorizedException('No valid email')
@@ -54,7 +54,7 @@ export class AuthService {
 
     return {
       ...user,
-      token: this.getJwtToken({ email: user.email })
+      token: this.getJwtToken({ id: user.id })
     }
     // try {
 

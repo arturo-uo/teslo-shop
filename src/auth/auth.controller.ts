@@ -1,7 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { Controller, Get, Post, Body, UseGuards, Req, SetMetadata } from '@nestjs/common';
+import { AuthService } from './auth.service'
+import { CreateUserDto } from './dto/create-user.dto'
+import { LoginUserDto } from './dto/login-user.dto'
+import { AuthGuard } from '@nestjs/passport'
+import { GetUser, GetRawHeaders } from './decorators'
+import { User } from './entities/user.entity'
+import { UserRoleGuard } from './guards/user-role.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,5 +19,28 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('private')
+  @UseGuards(AuthGuard())
+  testingPrivateRoute(
+    @Req() request: Express.Request,
+    @GetUser() user: User,
+    @GetUser('email') email: string,
+    @GetRawHeaders() rawHeaders: string[]
+  )
+  {
+    console.log(request)
+    return {ok:true, message:"Allowed route", user, email, rawHeaders}
+  }
+
+  @Get('private2')
+  @SetMetadata('roles', ['admin', 'super-user'])
+  @UseGuards(AuthGuard(), UserRoleGuard)
+  PrivateRoute(
+    @GetUser() user: User
+  )
+  {
+    return {ok:true, message:"Allowed route", user}
   }
 }
