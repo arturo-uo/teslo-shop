@@ -5,8 +5,8 @@ import { LoginUserDto } from './dto/login-user.dto'
 import { AuthGuard } from '@nestjs/passport'
 import { GetUser, GetRawHeaders, RoleProtected, Auth } from './decorators'
 import { User } from './entities/user.entity'
-import { UserRoleGuard } from './guards/user-role.guard';
-import { ValidRoles } from './interface/valid-roles';
+import { UserRoleGuard } from './guards/user-role.guard'
+import { ValidRoles } from './interface/valid-roles'
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +20,13 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('check-status')
+  @Auth()
+  checkStatus(@GetUser() user: User)
+  {
+    return this.authService.checkStatus(user)
   }
 
   @Get('private')
