@@ -23,3 +23,9 @@ http://localhost:3000/api/v1/seed
 
 7. Ejecutar
 ```npm run start:dev```
+
+Back
+```https://github.com/Klerith/nest-teslo-shop/tree/fin-seccion-15```
+
+Front
+```https://github.com/Klerith/-nest-teslo-shop-front```
